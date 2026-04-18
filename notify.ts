@@ -1,19 +1,19 @@
-export default async function({ $ }: any) {
+import { execSync } from "child_process"
+
+export default async function(_ctx: any) {
   return {
     event: async ({ event }: any) => {
 
-      // Agent finished, waiting for your next message
       if (event.type === "session.idle") {
-        // Beep works reliably on Windows
-        await $`powershell -Command "[Console]::Beep(1000, 400)"`
-        // Toast via msg (built into Windows, no object chaining)
-        await $`msg * /TIME:5 "OpenCode: Waiting for your input"`
+        try {
+          execSync(`powershell.exe -NoProfile -Command "[Console]::Beep(1000, 400); [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; [System.Windows.Forms.MessageBox]::Show('OpenCode is waiting for your input.', 'OpenCode') | Out-Null"`)
+        } catch {}
       }
 
-      // Agent stopped, needs your approval before continuing
       if (event.type === "permission.asked") {
-        await $`powershell -Command "[Console]::Beep(1200, 600)"`
-        await $`msg * /TIME:5 "OpenCode: Permission required!"`
+        try {
+          execSync(`powershell.exe -NoProfile -Command "[Console]::Beep(1200, 600); [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; [System.Windows.Forms.MessageBox]::Show('OpenCode requires your permission!', 'OpenCode') | Out-Null"`)
+        } catch {}
       }
 
     },
