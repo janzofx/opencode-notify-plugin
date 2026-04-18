@@ -1,17 +1,17 @@
-import { writeFileSync, appendFileSync } from "fs"
-
-const LOG = "C:\\Users\\jakub\\opencode-notify.log"
+import { execSync } from "child_process"
 
 export default async function(_ctx: any) {
-  appendFileSync(LOG, `[${new Date().toISOString()}] plugin loaded\n`)
-
   return {
     event: async ({ event }: any) => {
-      appendFileSync(LOG, `[${new Date().toISOString()}] event fired: ${event.type}\n`)
 
       if (event.type === "session.idle") {
-        appendFileSync(LOG, `[${new Date().toISOString()}] session.idle triggered\n`)
+        try { execSync(`powershell.exe -NoProfile -Command "[Console]::Beep(1000, 400)"`) } catch {}
       }
+
+      if (event.type === "permission.asked") {
+        try { execSync(`powershell.exe -NoProfile -Command "[Console]::Beep(1200, 600)"`) } catch {}
+      }
+
     },
   }
 }
