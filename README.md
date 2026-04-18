@@ -4,6 +4,8 @@ OpenCode plugin for Windows that fires a **desktop toast notification + beep sou
 
 No extra installs. No tokens consumed. No shell wrapper needed.
 
+Runs natively via Bun (TypeScript supported out of the box — no transpilation needed).
+
 ---
 
 ## Events Handled
@@ -29,7 +31,7 @@ On Windows this typically resolves to:
 C:\Users\<YourUsername>\.config\opencode\plugins\notify.ts
 ```
 
-2. That's it. OpenCode auto-loads all files in the plugins folder on startup — no `opencode.json` changes needed.
+2. That's it. OpenCode auto-loads all `.ts` and `.js` files in the plugins folder on startup — no `opencode.json` changes needed.
 
 ---
 
@@ -50,5 +52,5 @@ Windows ships `.wav` files in `C:\Windows\Media\` — `notify.wav`, `tada.wav`, 
 ## Requirements
 
 - Windows 10 / 11
-- OpenCode (any recent version)
+- OpenCode (any recent version with plugin support)
 - PowerShell (built-in on all modern Windows)
